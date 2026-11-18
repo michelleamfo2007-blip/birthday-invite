@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/gabriel-kukuia", "destination": "/index.html" },
+    { "source": "/gabriel-kukuia-couple", "destination": "/couple.html" }
+  ]
+}
