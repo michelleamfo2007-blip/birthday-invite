@@ -139,6 +139,12 @@
       color: var(--muted);
     }
 
+    .places {
+      margin: 22px 0 0;
+      font-size: 0.98rem;
+      color: var(--muted);
+    }
+
     .reply-by {
       margin: 28px 0 0;
       font-size: 0.98rem;
@@ -275,6 +281,7 @@
     </ul>
     <p class="venue" id="venue"></p>
     <p class="address" id="address"></p>
+    <p class="places">One place</p>
     <p class="reply-by" id="reply-by"></p>
     <p class="phones" id="phones"></p>
     <form class="rsvp" id="rsvp">
@@ -283,20 +290,6 @@
       <div class="rsvp-actions" id="rsvp-actions">
         <button type="button" id="accept">Accept</button>
         <button type="button" id="regret">Decline</button>
-      </div>
-      <div id="party" hidden>
-        <p class="party-note">Are you replying alone, or as a couple?</p>
-        <div class="rsvp-actions rsvp-actions-stack">
-          <button type="button" id="solo">Just me</button>
-          <button type="button" id="both">Both of us</button>
-          <button type="button" id="one">Only one of us</button>
-        </div>
-      </div>
-      <div id="one-guest" hidden>
-        <label class="visually-hidden" for="attending-name" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Who will attend</label>
-        <input id="attending-name" type="text" placeholder="Who will attend" autocomplete="name" spellcheck="false">
-        <p class="seat-note">The other place will be offered to someone else.</p>
-        <button type="button" id="release" class="send-reply">Send reply</button>
       </div>
     </form>
     <p class="hosts" id="hosts"></p>
@@ -391,31 +384,9 @@
       const name = named("guest-name");
       if (!name) return;
       finishReply(
-        "Reply — one guest — " + INVITE.honoree,
-        name + " accepts. One place kept.",
-        "With pleasure, " + name + ". A place is kept for you."
-      );
-    }
-
-    function replyBoth() {
-      const name = named("guest-name");
-      if (!name) return;
-      finishReply(
-        "Reply — two guests — " + INVITE.honoree,
-        name + " will both attend. Two places kept.",
-        "With pleasure. Two places are kept for " + name + "."
-      );
-    }
-
-    function replyOne() {
-      const household = named("guest-name");
-      if (!household) return;
-      const guest = named("attending-name");
-      if (!guest) return;
-      finishReply(
-        "One seat free — " + INVITE.honoree,
-        "Reply from " + household + ".\nOnly " + guest + " will attend.\nOne seat is free. Please offer it to someone else.",
-        "Thank you. One place is kept for " + guest + ". The other place is free."
+        "One guest — " + INVITE.honoree,
+        name + " will attend.\nOne place kept.",
+        name + ", one place is kept for you."
       );
     }
 
@@ -423,31 +394,16 @@
       const name = named("guest-name");
       if (!name) return;
       finishReply(
-        "Regrets — " + INVITE.honoree,
-        name + " declines with regret.",
-        "You will be missed, " + name + ". Thank you for sending word."
+        "Unable to attend — " + INVITE.honoree,
+        name + " will not attend.",
+        "Thank you, " + name + ". You will be missed."
       );
     }
 
     document.getElementById("guest-name").addEventListener("input", function (event) {
       event.target.classList.remove("need");
     });
-    document.getElementById("attending-name").addEventListener("input", function (event) {
-      event.target.classList.remove("need");
-    });
-    document.getElementById("accept").addEventListener("click", function () {
-      if (!named("guest-name")) return;
-      document.getElementById("rsvp-actions").hidden = true;
-      document.getElementById("party").hidden = false;
-      document.getElementById("solo").focus();
-    });
-    document.getElementById("solo").addEventListener("click", replySolo);
-    document.getElementById("both").addEventListener("click", replyBoth);
-    document.getElementById("one").addEventListener("click", function () {
-      document.getElementById("one-guest").hidden = false;
-      document.getElementById("attending-name").focus();
-    });
-    document.getElementById("release").addEventListener("click", replyOne);
+    document.getElementById("accept").addEventListener("click", replySolo);
     document.getElementById("regret").addEventListener("click", replyRegret);
 
     render();
