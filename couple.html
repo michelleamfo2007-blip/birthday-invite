@@ -124,8 +124,21 @@
       letter-spacing: -0.02em;
     }
 
-    .venue {
+    .location {
+      display: block;
       margin: 22px 0 0;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .location:hover .address,
+    .location:focus-visible .address {
+      color: var(--ink);
+      outline: none;
+    }
+
+    .venue {
+      margin: 0;
       font-family: Fraunces, Georgia, serif;
       font-weight: 500;
       font-size: 1.35rem;
@@ -137,6 +150,9 @@
       font-size: 0.98rem;
       line-height: 1.45;
       color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: #d9d1c7;
     }
 
     .places {
@@ -279,8 +295,10 @@
         <strong id="dress"></strong>
       </li>
     </ul>
-    <p class="venue" id="venue"></p>
-    <p class="address" id="address"></p>
+    <a class="location" id="location" href="https://maps.google.com/?q=5.62218,-0.06226" target="_blank" rel="noopener">
+      <p class="venue" id="venue"></p>
+      <p class="address" id="address"></p>
+    </a>
     <p class="places">Two places</p>
     <p class="reply-by" id="reply-by"></p>
     <p class="phones" id="phones"></p>
