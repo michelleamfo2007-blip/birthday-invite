@@ -57,7 +57,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 22px;
+      gap: 0;
       padding: 32px;
       border: 0;
       background: var(--room);
@@ -67,17 +67,44 @@
       font-weight: 560;
       font-size: 11px;
       letter-spacing: 0.28em;
+      text-align: center;
       text-transform: uppercase;
       transition: opacity 0.55s ease, visibility 0.55s ease;
     }
 
-    .bow svg {
-      width: min(210px, 62vw);
-      height: auto;
-      display: block;
+    .bow-kicker {
+      margin-bottom: 28px;
+      letter-spacing: 0.28em;
     }
 
-    .bow-kicker {
+    .bow-age {
+      font-family: Fraunces, Georgia, serif;
+      font-weight: 500;
+      font-size: 84px;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      text-transform: none;
+      color: #4a433c;
+    }
+
+    .bow-name {
+      margin-top: 18px;
+      font-family: Fraunces, Georgia, serif;
+      font-weight: 500;
+      font-size: 1.55rem;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      text-transform: none;
+      color: var(--ink);
+    }
+
+    .bow-date {
+      margin-top: 22px;
+      letter-spacing: 0.22em;
+    }
+
+    .bow-open {
+      margin-top: 48px;
       letter-spacing: 0.28em;
     }
 
@@ -338,16 +365,10 @@
 <body>
   <button class="bow" id="open-bow" type="button" aria-label="Open the invitation">
     <span class="bow-kicker">A private celebration</span>
-    <svg viewBox="0 0 240 280" aria-hidden="true">
-      <path fill="#cbb8a6" d="M112 136 L62 262 L80 266 L124 148 Z"></path>
-      <path fill="#cbb8a6" d="M128 136 L178 262 L160 266 L116 148 Z"></path>
-      <path d="M120 128 C106 52 22 34 30 90 C38 146 90 116 120 136" fill="none" stroke="#d9c8b7" stroke-width="22" stroke-linecap="round"></path>
-      <path d="M120 122 C108 72 52 62 56 96" fill="none" stroke="#b9a492" stroke-width="6" stroke-linecap="round"></path>
-      <path d="M120 128 C134 52 218 34 210 90 C202 146 150 116 120 136" fill="none" stroke="#d9c8b7" stroke-width="22" stroke-linecap="round"></path>
-      <path d="M120 122 C132 72 188 62 184 96" fill="none" stroke="#b9a492" stroke-width="6" stroke-linecap="round"></path>
-      <rect x="98" y="108" width="44" height="36" rx="6" fill="#a8907c"></rect>
-    </svg>
-    <span>Tap to open</span>
+    <span class="bow-age">50</span>
+    <span class="bow-name">Gabriel Kukuia</span>
+    <span class="bow-date">Sunday, 29 November</span>
+    <span class="bow-open">Tap to open</span>
   </button>
   <article class="card" id="card" tabindex="-1">
     <p class="kicker">A private celebration</p>
