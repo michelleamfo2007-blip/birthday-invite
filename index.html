@@ -49,11 +49,60 @@
       color: #f7f6f3;
     }
 
+    .bow {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      padding: 32px;
+      border: 0;
+      background: var(--room);
+      color: var(--muted);
+      cursor: pointer;
+      font-family: Outfit, "Segoe UI", sans-serif;
+      font-weight: 560;
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      transition: opacity 0.55s ease, visibility 0.55s ease;
+    }
+
+    .bow svg {
+      width: min(210px, 62vw);
+      height: auto;
+      display: block;
+    }
+
+    .bow-kicker {
+      letter-spacing: 0.28em;
+    }
+
+    body.is-open .bow {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
     .card {
+      display: none;
       width: min(420px, 100%);
       background: var(--paper);
       padding: 64px 44px 52px;
       box-shadow: 0 18px 50px rgba(44, 40, 36, 0.06);
+    }
+
+    body.is-open .card {
+      display: block;
+      animation: rise 0.7s ease both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: none; }
     }
 
     .card:focus { outline: none; }
@@ -273,17 +322,34 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      button { transition: none; }
+      button,
+      .bow { transition: none; }
+      body.is-open .card { animation: none; }
     }
 
     @media print {
       body { background: white; padding: 0; }
-      .card { box-shadow: none; }
+      .bow { display: none !important; }
+      .card { display: block !important; box-shadow: none; }
       .rsvp { display: none; }
     }
   </style>
 </head>
 <body>
+  <button class="bow" id="open-bow" type="button" aria-label="Open the invitation">
+    <span class="bow-kicker">A private celebration</span>
+    <svg viewBox="0 0 280 240" aria-hidden="true">
+      <path d="M132 118 L86 196 L104 202 L148 128 Z" fill="#cbb8a6"></path>
+      <path d="M148 118 L194 196 L176 202 L132 128 Z" fill="#cbb8a6"></path>
+      <path d="M140 112 C108 118 34 104 30 68 C26 32 92 28 140 78 Z" fill="#d9c8b7"></path>
+      <path d="M140 112 C172 118 246 104 250 68 C254 32 188 28 140 78 Z" fill="#d9c8b7"></path>
+      <path d="M140 104 C116 104 70 90 72 64 C74 46 112 50 140 84 Z" fill="#c4af9c"></path>
+      <path d="M140 104 C164 104 210 90 208 64 C206 46 168 50 140 84 Z" fill="#c4af9c"></path>
+      <ellipse cx="140" cy="116" rx="18" ry="16" fill="#a8907c"></ellipse>
+      <ellipse cx="140" cy="114" rx="8" ry="7" fill="#e4d5c6"></ellipse>
+    </svg>
+    <span>Tap to open</span>
+  </button>
   <article class="card" id="card" tabindex="-1">
     <p class="kicker">A private celebration</p>
     <p class="age" id="age">50</p>
@@ -428,6 +494,11 @@
 
     document.getElementById("guest-name").addEventListener("input", function (event) {
       event.target.classList.remove("need");
+    });
+    document.getElementById("open-bow").addEventListener("click", function () {
+      if (document.body.classList.contains("is-open")) return;
+      document.body.classList.add("is-open");
+      document.getElementById("card").focus();
     });
     document.getElementById("accept").addEventListener("click", replySolo);
     document.getElementById("regret").addEventListener("click", replyRegret);
