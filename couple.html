@@ -405,16 +405,10 @@
     <form class="rsvp" id="rsvp">
       <label class="visually-hidden" for="guest-name" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Your names</label>
       <input id="guest-name" name="guest" type="text" placeholder="Your names" autocomplete="name" spellcheck="false">
-      <div class="rsvp-actions" id="rsvp-actions">
-        <button type="button" id="accept">Accept</button>
+      <div class="rsvp-actions rsvp-actions-stack" id="rsvp-actions">
+        <button type="button" id="both">Both of us</button>
+        <button type="button" id="one">Only one of us</button>
         <button type="button" id="regret">Decline</button>
-      </div>
-      <div id="party" hidden>
-        <p class="party-note">Will you both attend?</p>
-        <div class="rsvp-actions rsvp-actions-stack">
-          <button type="button" id="both">Both of us</button>
-          <button type="button" id="one">Only one of us</button>
-        </div>
       </div>
       <div id="one-guest" hidden>
         <label class="visually-hidden" for="attending-name" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Who will attend</label>
@@ -568,14 +562,9 @@
       document.body.classList.add("is-open");
       document.getElementById("card").focus();
     });
-    document.getElementById("accept").addEventListener("click", function () {
-      if (!named("guest-name")) return;
-      document.getElementById("rsvp-actions").hidden = true;
-      document.getElementById("party").hidden = false;
-      document.getElementById("both").focus();
-    });
     document.getElementById("both").addEventListener("click", replyBoth);
     document.getElementById("one").addEventListener("click", function () {
+      if (!named("guest-name")) return;
       document.getElementById("one-guest").hidden = false;
       document.getElementById("attending-name").focus();
     });
