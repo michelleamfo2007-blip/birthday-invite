@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gabriel Kukuia · 50</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,560&family=Outfit:wght@360;460;560&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%231a1a1a'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Georgia' font-size='22' fill='%23fbfbfa'%3E50%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --ink: #2c2824;
+      --muted: #8a8178;
+      --line: #e4ddd4;
+      --paper: #fbf8f4;
+      --room: #efeae3;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--room);
+      color: var(--ink);
+    }
+
+    body {
+      font-family: Outfit, "Segoe UI", sans-serif;
+      font-weight: 360;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px 48px;
+    }
+
+    ::selection {
+      background: #1a1a1a;
+      color: #f7f6f3;
+    }
+
+    .card {
+      width: min(420px, 100%);
+      background: var(--paper);
+      padding: 64px 44px 52px;
+      box-shadow: 0 18px 50px rgba(44, 40, 36, 0.06);
+    }
+
+    .card:focus { outline: none; }
+
+    .kicker,
+    .label,
+    .note,
+    .phones-label,
+    .hosts,
+    button {
+      font-family: Outfit, "Segoe UI", sans-serif;
+      font-weight: 560;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .kicker {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .age {
+      margin: 36px 0 0;
+      font-family: Fraunces, Georgia, serif;
+      font-weight: 500;
+      font-size: 52px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: #4a433c;
+    }
+
+    .honoree {
+      margin: 28px 0 0;
+      font-family: Fraunces, Georgia, serif;
+      font-weight: 500;
+      font-size: clamp(2rem, 6.4vw, 2.45rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+
+    .occasion {
+      margin: 18px 0 0;
+      max-width: 26ch;
+      font-size: 1.05rem;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin: 44px 0 0;
+      padding: 26px 0 0;
+      border-top: 1px solid var(--line);
+      list-style: none;
+    }
+
+    .facts span {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 10px;
+      font-weight: 560;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .facts strong {
+      display: block;
+      font-family: Fraunces, Georgia, serif;
+      font-weight: 500;
+      font-size: 1.05rem;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    .venue {
+      margin: 22px 0 0;
+      font-family: Fraunces, Georgia, serif;
+      font-weight: 500;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+    }
+
+    .address {
+      margin: 6px 0 0;
+      font-size: 0.98rem;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .reply-by {
+      margin: 28px 0 0;
+      font-size: 0.98rem;
+      color: var(--muted);
+    }
+
+    .phones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      margin: 10px 0 0;
+    }
+
+    .phones a {
+      color: var(--ink);
+      font-size: 0.98rem;
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .phones a:hover,
+    .phones a:focus-visible {
+      border-bottom-color: var(--ink);
+      outline: none;
+    }
+
+    .rsvp { margin-top: 28px; }
+
+    [hidden] { display: none !important; }
+
+    .rsvp input {
+      width: 100%;
+      font-family: Outfit, "Segoe UI", sans-serif;
+      font-size: 1rem;
+      color: var(--ink);
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--line);
+      padding: 10px 0;
+      outline: none;
+    }
+
+    .rsvp input:focus { border-bottom-color: var(--ink); }
+    .rsvp input.need { border-bottom-color: #9a3030; }
+
+    .rsvp-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .rsvp-actions-stack { grid-template-columns: 1fr; }
+
+    .party-note,
+    .seat-note {
+      margin: 16px 0 0;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: var(--muted);
+    }
+
+    .send-reply {
+      width: 100%;
+      margin-top: 14px;
+    }
+
+    button {
+      min-height: 48px;
+      color: var(--ink);
+      background: transparent;
+      border: 1px solid #cfc6bc;
+      cursor: pointer;
+    }
+
+    button:hover,
+    button:focus-visible {
+      border-color: var(--ink);
+      background: transparent;
+      color: var(--ink);
+      outline: none;
+    }
+
+    .thanks {
+      margin: 28px 0 0;
+      font-family: Fraunces, Georgia, serif;
+      font-size: 1.35rem;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+    }
+
+    .hosts {
+      margin: 36px 0 0;
+      color: var(--muted);
+      font-weight: 460;
+    }
+
+    @media (max-width: 420px) {
+      .card { padding: 48px 28px 40px; }
+      .age { font-size: 46px; }
+      .facts { gap: 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      button { transition: none; }
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .card { box-shadow: none; }
+      .rsvp { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <article class="card" id="card" tabindex="-1">
+    <p class="kicker">A private celebration</p>
+    <p class="age" id="age">50</p>
+    <h1 class="honoree" id="honoree">Gabriel Kukuia</h1>
+    <p class="occasion" id="occasion"></p>
+    <ul class="facts">
+      <li>
+        <span>Date</span>
+        <strong id="date-line"></strong>
+      </li>
+      <li>
+        <span>Time</span>
+        <strong id="time-line"></strong>
+      </li>
+      <li>
+        <span>Dress</span>
+        <strong id="dress"></strong>
+      </li>
+    </ul>
+    <p class="venue" id="venue"></p>
+    <p class="address" id="address"></p>
+    <p class="reply-by" id="reply-by"></p>
+    <p class="phones" id="phones"></p>
+    <form class="rsvp" id="rsvp">
+      <label class="visually-hidden" for="guest-name" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Your name</label>
+      <input id="guest-name" name="guest" type="text" placeholder="Your name" autocomplete="name" spellcheck="false">
+      <div class="rsvp-actions" id="rsvp-actions">
+        <button type="button" id="accept">Accept</button>
+        <button type="button" id="regret">Decline</button>
+      </div>
+      <div id="party" hidden>
+        <p class="party-note">Are you replying alone, or as a couple?</p>
+        <div class="rsvp-actions rsvp-actions-stack">
+          <button type="button" id="solo">Just me</button>
+          <button type="button" id="both">Both of us</button>
+          <button type="button" id="one">Only one of us</button>
+        </div>
+      </div>
+      <div id="one-guest" hidden>
+        <label class="visually-hidden" for="attending-name" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Who will attend</label>
+        <input id="attending-name" type="text" placeholder="Who will attend" autocomplete="name" spellcheck="false">
+        <p class="seat-note">The other place will be offered to someone else.</p>
+        <button type="button" id="release" class="send-reply">Send reply</button>
+      </div>
+    </form>
+    <p class="hosts" id="hosts"></p>
+  </article>
+
+  <script>
+    const INVITE = {
+      honoree: "Gabriel Kukuia",
+      age: 50,
+      date: "2026-11-29",
+      timeFormal: "2:00 PM",
+      venue: "N'Joy Hotel",
+      address: ["Spintex Sakumono Road", "Adjacent to Fridays Restaurant"],
+      dress: "All white",
+      rsvpBy: "2026-11-22",
+      phones: ["0244481773", "0277551030"],
+      whatsapp: "233244481773",
+      hosts: "Strictly by invitation",
+      occasion: "An afternoon of gratitude, joy and celebration."
+    };
+
+    function atNoon(iso) {
+      return new Date(iso + "T12:00:00");
+    }
+
+    function monthName(iso) {
+      return atNoon(iso).toLocaleDateString("en-US", { month: "long" });
+    }
+
+    function render() {
+      const when = atNoon(INVITE.date);
+      const reply = atNoon(INVITE.rsvpBy);
+      document.title = INVITE.honoree + " · 50";
+      document.getElementById("age").textContent = String(INVITE.age);
+      document.getElementById("honoree").textContent = INVITE.honoree;
+      document.getElementById("occasion").textContent = INVITE.occasion;
+      document.getElementById("date-line").textContent =
+        when.getDate() + " " + when.toLocaleDateString("en-US", { month: "short" }) + " " + when.getFullYear();
+      document.getElementById("time-line").textContent = INVITE.timeFormal;
+      document.getElementById("dress").textContent = INVITE.dress;
+      document.getElementById("venue").textContent = INVITE.venue;
+      const address = document.getElementById("address");
+      address.replaceChildren();
+      INVITE.address.forEach(function (line, index) {
+        if (index) address.appendChild(document.createElement("br"));
+        address.appendChild(document.createTextNode(line));
+      });
+      document.getElementById("reply-by").textContent =
+        "Please reply by " + reply.getDate() + " " + monthName(INVITE.rsvpBy);
+      document.getElementById("hosts").textContent = INVITE.hosts;
+
+      const phones = document.getElementById("phones");
+      phones.replaceChildren();
+      INVITE.phones.forEach(function (number) {
+        const link = document.createElement("a");
+        link.href = "https://wa.me/233" + number.slice(1);
+        link.target = "_blank";
+        link.rel = "noopener";
+        link.textContent = number.slice(0, 3) + " " + number.slice(3, 6) + " " + number.slice(6);
+        phones.appendChild(link);
+      });
+    }
+
+    function named(id) {
+      const input = document.getElementById(id);
+      const name = input.value.trim();
+      if (!name) {
+        input.classList.add("need");
+        input.focus();
+        return "";
+      }
+      return name;
+    }
+
+    function finishReply(subject, body, thanks) {
+      if (INVITE.whatsapp) {
+        window.open(
+          "https://wa.me/" + INVITE.whatsapp + "?text=" + encodeURIComponent(subject + "\n\n" + body),
+          "_blank",
+          "noopener"
+        );
+      }
+      const form = document.getElementById("rsvp");
+      const note = document.createElement("p");
+      note.className = "thanks";
+      note.setAttribute("role", "status");
+      note.textContent = thanks;
+      form.replaceWith(note);
+    }
+
+    function replySolo() {
+      const name = named("guest-name");
+      if (!name) return;
+      finishReply(
+        "Reply — one guest — " + INVITE.honoree,
+        name + " accepts. One place kept.",
+        "With pleasure, " + name + ". A place is kept for you."
+      );
+    }
+
+    function replyBoth() {
+      const name = named("guest-name");
+      if (!name) return;
+      finishReply(
+        "Reply — two guests — " + INVITE.honoree,
+        name + " will both attend. Two places kept.",
+        "With pleasure. Two places are kept for " + name + "."
+      );
+    }
+
+    function replyOne() {
+      const household = named("guest-name");
+      if (!household) return;
+      const guest = named("attending-name");
+      if (!guest) return;
+      finishReply(
+        "One seat free — " + INVITE.honoree,
+        "Reply from " + household + ".\nOnly " + guest + " will attend.\nOne seat is free. Please offer it to someone else.",
+        "Thank you. One place is kept for " + guest + ". The other place is free."
+      );
+    }
+
+    function replyRegret() {
+      const name = named("guest-name");
+      if (!name) return;
+      finishReply(
+        "Regrets — " + INVITE.honoree,
+        name + " declines with regret.",
+        "You will be missed, " + name + ". Thank you for sending word."
+      );
+    }
+
+    document.getElementById("guest-name").addEventListener("input", function (event) {
+      event.target.classList.remove("need");
+    });
+    document.getElementById("attending-name").addEventListener("input", function (event) {
+      event.target.classList.remove("need");
+    });
+    document.getElementById("accept").addEventListener("click", function () {
+      if (!named("guest-name")) return;
+      document.getElementById("rsvp-actions").hidden = true;
+      document.getElementById("party").hidden = false;
+      document.getElementById("solo").focus();
+    });
+    document.getElementById("solo").addEventListener("click", replySolo);
+    document.getElementById("both").addEventListener("click", replyBoth);
+    document.getElementById("one").addEventListener("click", function () {
+      document.getElementById("one-guest").hidden = false;
+      document.getElementById("attending-name").focus();
+    });
+    document.getElementById("release").addEventListener("click", replyOne);
+    document.getElementById("regret").addEventListener("click", replyRegret);
+
+    render();
+  </script>
+</body>
+</html>
