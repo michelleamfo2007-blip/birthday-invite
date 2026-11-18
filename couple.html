@@ -338,15 +338,14 @@
 <body>
   <button class="bow" id="open-bow" type="button" aria-label="Open the invitation">
     <span class="bow-kicker">A private celebration</span>
-    <svg viewBox="0 0 280 240" aria-hidden="true">
-      <path d="M132 118 L86 196 L104 202 L148 128 Z" fill="#cbb8a6"></path>
-      <path d="M148 118 L194 196 L176 202 L132 128 Z" fill="#cbb8a6"></path>
-      <path d="M140 112 C108 118 34 104 30 68 C26 32 92 28 140 78 Z" fill="#d9c8b7"></path>
-      <path d="M140 112 C172 118 246 104 250 68 C254 32 188 28 140 78 Z" fill="#d9c8b7"></path>
-      <path d="M140 104 C116 104 70 90 72 64 C74 46 112 50 140 84 Z" fill="#c4af9c"></path>
-      <path d="M140 104 C164 104 210 90 208 64 C206 46 168 50 140 84 Z" fill="#c4af9c"></path>
-      <ellipse cx="140" cy="116" rx="18" ry="16" fill="#a8907c"></ellipse>
-      <ellipse cx="140" cy="114" rx="8" ry="7" fill="#e4d5c6"></ellipse>
+    <svg viewBox="0 0 240 280" aria-hidden="true">
+      <path fill="#cbb8a6" d="M112 136 L62 262 L80 266 L124 148 Z"></path>
+      <path fill="#cbb8a6" d="M128 136 L178 262 L160 266 L116 148 Z"></path>
+      <path d="M120 128 C106 52 22 34 30 90 C38 146 90 116 120 136" fill="none" stroke="#d9c8b7" stroke-width="22" stroke-linecap="round"></path>
+      <path d="M120 122 C108 72 52 62 56 96" fill="none" stroke="#b9a492" stroke-width="6" stroke-linecap="round"></path>
+      <path d="M120 128 C134 52 218 34 210 90 C202 146 150 116 120 136" fill="none" stroke="#d9c8b7" stroke-width="22" stroke-linecap="round"></path>
+      <path d="M120 122 C132 72 188 62 184 96" fill="none" stroke="#b9a492" stroke-width="6" stroke-linecap="round"></path>
+      <rect x="98" y="108" width="44" height="36" rx="6" fill="#a8907c"></rect>
     </svg>
     <span>Tap to open</span>
   </button>
@@ -478,11 +477,25 @@
         );
       }
       const form = document.getElementById("rsvp");
-      const note = document.createElement("p");
-      note.className = "thanks";
-      note.setAttribute("role", "status");
-      note.textContent = thanks;
-      form.replaceWith(note);
+      const wrap = document.createElement("div");
+      const prompt = document.createElement("p");
+      prompt.className = "party-note";
+      prompt.textContent = "Send the message in WhatsApp to 024 448 1773.";
+      const done = document.createElement("button");
+      done.type = "button";
+      done.className = "send-reply";
+      done.textContent = "I have sent it";
+      done.addEventListener("click", function () {
+        const note = document.createElement("p");
+        note.className = "thanks";
+        note.setAttribute("role", "status");
+        note.textContent = thanks;
+        wrap.replaceWith(note);
+      });
+      wrap.appendChild(prompt);
+      wrap.appendChild(done);
+      form.replaceWith(wrap);
+      done.focus();
     }
 
     function replyBoth() {
